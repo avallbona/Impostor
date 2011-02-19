@@ -18,13 +18,11 @@ Impostor is a MMM project (http://mmm.si) developed by Marko Samastur
 
 Installation
 ------------
-First install impostor app files as you would any other Django app. If you have
-pip installed, you can just execute:
-	pip install -e git+GITREPO_URL
-
-Next some changes to your Django settings file are in order. To 
+First install impostor app files as you would any other Django app.
+Next some changes to your Django settings file are in order. To
 AUTHENTICATION_BACKENDS add:
-	'impostor.backend.AuthBackend'
+
+    ``'impostor.backend.AuthBackend'``
 
 This will add impostor auth backend to other backends. Also add 'impostor' app
 to INSTALLED APPS.
@@ -37,7 +35,8 @@ Usage
 By now you should have a working system. This means that your staff (users
 with is_staff flag set to True) can log in as different user by using their
 password and following concatention:
-	staff_username as users_username
+
+    ``staff_username as users_username``
 
 Example: Let's say my username is markos and I want to login as user fry.
 Then I would use 'markos as fry' as my username and my normal password for
@@ -60,12 +59,11 @@ TODO/WISHLIST
 - record when impostor logs out*
 - mark "hijacked" requests (so impostor can tell when he is using website as
   somebody else and avoid doing something stupid or that you can limit what is
-  doable in such case)*
+  doable in such case)
 - framework for easy notification of hijacked users (so you can notify them
   that their account has been accessed if you wish)
 
-* This feature depends on django auth signals which are documented but missing
-  in Django 1.2.
+[*] This feature depends on django auth signals coming in Django 1.3, which I am not using yet.
 
 
 Known bugs
