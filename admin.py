@@ -4,13 +4,13 @@ from django.shortcuts import render_to_response
 
 
 class ImpostorAdmin(admin.ModelAdmin):
-	fields = ('impostor', 'imposted_as', 'logged_in', 'logged_out')
-	list_display = ('impostor', 'imposted_as', 'logged_in', 'logged_out')
+	fields = ('impostor', 'imposted_as', 'logged_in', 'impostor_ip')
+	list_display = ('impostor', 'imposted_as', 'impostor_ip', 'logged_in')
 	list_editable = ()
 	actions_on_top = False
 	actions_on_bottom = False
-	ordering = ('logged_in', 'impostor')
-	readonly_fields = ('impostor', 'imposted_as', 'logged_in', 'logged_out')
+	ordering = ('-logged_in', 'impostor')
+	readonly_fields = ('impostor', 'imposted_as', 'impostor_ip', 'logged_in', 'logged_out')
 	search_fields = ('impostor__username', 'imposted_as__username')
 
 	def add_view(self, request, form_url='', extra_context=None):

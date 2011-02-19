@@ -1,6 +1,26 @@
 import django.contrib.auth as auth
 from django.contrib.auth.models import User
+from django.http import HttpRequest
 from models import ImpostorLog
+import inspect
+
+def find_request():
+	'''
+	Inspect running environment for request object. There should be one,
+	but don't rely on it.
+	'''
+	frame = inspect.currentframe()
+	request = None
+	f = frame
+
+	while not request and f:
+		if 'request' in f.f_locals and isinstance(f.f_locals['request'], HttpRequest):
+			request = f.f_locals['request']
+		f = f.f_back
+
+	del frame
+	return request
+
 
 class AuthBackend:
 	supports_anonymous_user = False
@@ -19,14 +39,17 @@ class AuthBackend:
 				auth_user = User.objects.get(username=uuser)
 
 			if auth_user:
-				log_entry = ImpostorLog.objects.create(impostor=admin_obj, imposted_as=auth_user)
-				'''
-				if log_entry.token:
-					auth_user.impostor_token = log_entry.token
-				'''
+				# Try to find request object and maybe be lucky enough to find IP address there
+				request = find_request()
+				ip_addr = ''
+				if request:
+					ip_addr = request.META.get('HTTP_X_FORWARDED_FOR', request.META.get('HTTP_X_REAL_IP', request.META.get('REMOTE_ADDR', '')))
+				log_entry = ImpostorLog.objects.create(impostor=admin_obj, imposted_as=auth_user, impostor_ip=ip_addr)
 
-		except:
-			# Nah, just user. Do nothing and let other backends handle it.
+				if log_entry.token and request:
+					request.session['impostor_token'] = log_entry.token
+
+		except: # Nope. Do nothing and let other backends handle it.
 			pass
 		return auth_user
 

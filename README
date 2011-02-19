@@ -55,9 +55,8 @@ NOTE: Only staff users can use this (you have to turn on is_staff for every
 user that needs this privilege) and every such log in gets recorded.
 
 
-TODO
-----
-- impostor's IP address logging*
+TODO/WISHLIST
+-------------
 - record when impostor logs out*
 - mark "hijacked" requests (so impostor can tell when he is using website as
   somebody else and avoid doing something stupid or that you can limit what is
