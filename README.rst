@@ -10,7 +10,8 @@ not possible to delete log entries through admin interface to make covering
 tracks more difficult.
 
 Impostor was developed and tested with Django 1.2. It might work with
-other versions too.
+other versions too. It also depends on Django's authentication system and
+assumes you use its usernames for authentication.
 
 Impostor is a MMM project (http://mmm.si) developed by Marko Samastur
 (markos@gaivo.net) licensed under MIT license.
@@ -18,14 +19,19 @@ Impostor is a MMM project (http://mmm.si) developed by Marko Samastur
 
 Installation
 ------------
+Impostor won't work, if you are not using Django's auth system. It currently
+also assumes that you use username to identify your users and not something
+else (like email).
+
 First install impostor app files as you would any other Django app.
 Next some changes to your Django settings file are in order. To
 AUTHENTICATION_BACKENDS add:
 
     ``'impostor.backend.AuthBackend'``
 
-This will add impostor auth backend to other backends. Also add 'impostor' app
-to INSTALLED APPS.
+This will add impostor auth backend to other backends. AUTHENTICATION_BACKENDS
+is a tuple listing backends that you need to add if you don't have it yet.
+Also add 'impostor' app to INSTALLED APPS.
 
 Run 'python manage.py syncdb' to create needed table and you are set.
 
@@ -56,6 +62,7 @@ user that needs this privilege) and every such log in gets recorded.
 
 TODO/Wishlist
 -------------
+- add support for log in with emails
 - record when impostor logs out*
 - mark "hijacked" requests (so impostor can tell when he is using website as
   somebody else and avoid doing something stupid or that you can limit what is
