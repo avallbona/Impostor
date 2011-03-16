@@ -31,7 +31,7 @@ AUTHENTICATION_BACKENDS add:
 
 This will add impostor auth backend to other backends. AUTHENTICATION_BACKENDS
 is a tuple listing backends that you need to add if you don't have it yet.
-Also add 'impostor' app to INSTALLED APPS.
+Also add 'impostor' app to INSTALLED_APPS.
 
 Run 'python manage.py syncdb' to create needed table and you are set.
 
