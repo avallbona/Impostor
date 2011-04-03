@@ -30,7 +30,15 @@ AUTHENTICATION_BACKENDS add:
     ``'impostor.backend.AuthBackend'``
 
 This will add impostor auth backend to other backends. AUTHENTICATION_BACKENDS
-is a tuple listing backends that you need to add if you don't have it yet.
+is a tuple listing backends and if you don't have it yet, then add following
+lines to your settings:
+::
+
+    AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.ModelBackend',
+        'impostor.backend.AuthBackend',
+    )
+
 Also add 'impostor' app to INSTALLED_APPS.
 
 Run 'python manage.py syncdb' to create needed table and you are set.
