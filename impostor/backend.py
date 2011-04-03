@@ -44,11 +44,11 @@ class AuthBackend:
 				ip_addr = ''
 				if request:
 					ip_addr = request.META.get('HTTP_X_FORWARDED_FOR', request.META.get('HTTP_X_REAL_IP', request.META.get('REMOTE_ADDR', '')))
-                    # if there are several ip addresses separated by comma
-                    # like HTTP_X_FORWARDED_FOR returns,
-                    # take only the first one, which is the client's address
-                    if ',' in ip_addr:
-                        ip_addr = ip_addr.split(',', 1)[0].strip()
+					# if there are several ip addresses separated by comma
+					# like HTTP_X_FORWARDED_FOR returns,
+					# take only the first one, which is the client's address
+					if ',' in ip_addr:
+						ip_addr = ip_addr.split(',', 1)[0].strip()
 				log_entry = ImpostorLog.objects.create(impostor=admin_obj, imposted_as=auth_user, impostor_ip=ip_addr)
 
 				if log_entry.token and request:
