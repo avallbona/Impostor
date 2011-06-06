@@ -36,7 +36,10 @@ class AuthBackend:
 			# Check if admin exists and authenticates
 			admin_obj = User.objects.get(username=admin)
 			if admin_obj.is_staff and admin_obj.check_password(password):
-				auth_user = User.objects.get(username=uuser)
+				try:
+					auth_user = User.objects.get(username=uuser)
+				except User.DoesNotExist:
+					auth_user = User.objects.get(email=uuser)
 
 			if auth_user:
 				# Try to find request object and maybe be lucky enough to find IP address there
