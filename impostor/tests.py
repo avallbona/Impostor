@@ -8,6 +8,7 @@ import datetime
 admin_username = 'real_test_admin'
 admin_pass = 'admin_pass'
 user_username = 'real_test_user'
+user_email = 'real@mail.com'
 user_pass = 'user_pass'
 
 class TestImpostorLogin(TestCase):
@@ -17,7 +18,7 @@ class TestImpostorLogin(TestCase):
 		real_admin.set_password(admin_pass)
 		real_admin.save()
 
-		real_user = User.objects.create(username=user_username, password=user_pass)
+		real_user = User.objects.create(username=user_username, email=user_email, password=user_pass)
 		real_user.set_password(user_pass)
 		real_user.save()
 
@@ -28,6 +29,11 @@ class TestImpostorLogin(TestCase):
 
 		self.failUnlessEqual(u, real_user)
 
+	def test_login_user_with_email(self):
+		u = authenticate(email=user_email, password=user_pass)
+		real_user = User.objects.get(email=user_email)
+
+		self.failUnlessEqual(u, real_user)
 
 	def test_login_admin(self):
 		u = authenticate(username=admin_username, password=admin_pass)
