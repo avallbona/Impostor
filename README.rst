@@ -72,6 +72,9 @@ NOTE: Only superuser users can use this (you have to turn on is_superuser
 for every user that needs this privilege) or those belonging to
 IMPOSTOR_GROUP and every such log in gets recorded.
 
+Also use IMPOSTOR_GROUP cautiously because it still allows impersonating
+somebody with different set of permissions (and hence security breach).
+
 
 TODO/Wishlist
 -------------
