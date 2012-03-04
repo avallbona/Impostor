@@ -14,7 +14,7 @@ user_pass = 'user_pass'
 class TestImpostorLogin(TestCase):
 	def setUp(self):
 		real_admin = User.objects.create(username=admin_username, password=admin_pass)
-		real_admin.is_staff = True
+		real_admin.is_superuser = True
 		real_admin.set_password(admin_pass)
 		real_admin.save()
 

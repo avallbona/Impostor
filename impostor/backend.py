@@ -35,7 +35,7 @@ class AuthBackend:
 
 			# Check if admin exists and authenticates
 			admin_obj = User.objects.get(username=admin)
-			if admin_obj.is_staff and admin_obj.check_password(password):
+			if admin_obj.is_superuser and admin_obj.check_password(password):
 				try:
 					auth_user = User.objects.get(username=uuser)
 				except User.DoesNotExist:
