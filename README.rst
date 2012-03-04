@@ -46,9 +46,9 @@ Run 'python manage.py syncdb' to create needed table and you are set.
 
 Usage
 -----
-By now you should have a working system. This means that your staff (users
-with is_staff flag set to True) can log in as different user by using their
-password and following concatention:
+By now you should have a working system. This means that your superuser users
+(users with is_superuser flag set to True) can log in as different user by
+using their password and following concatenation:
 
     ``staff_username as users_username``
 
@@ -60,12 +60,17 @@ Every such log in is logged in ImpostorLog table that can be seen through
 Django admin interface, but for obvious security reasons can't be
 manipulated there.
 
+You can widen set of users who can impose as other users by adding a setting
+IMPOSTOR_GROUP to settings.py. Users belonging to a group with this name
+will also be able to pretend to be somebody else (but not superusers).
+
 Impostor also provides a replacement authentication form, because two
 usernames can easily exceed 30 character limit of original form. Its name
 is BigAuthenticationForm and you can find it in impostor.forms.
 
-NOTE: Only staff users can use this (you have to turn on is_staff for every
-user that needs this privilege) and every such log in gets recorded.
+NOTE: Only superuser users can use this (you have to turn on is_superuser
+for every user that needs this privilege) or those belonging to
+IMPOSTOR_GROUP and every such log in gets recorded.
 
 
 TODO/Wishlist
@@ -83,5 +88,4 @@ TODO/Wishlist
 
 Known bugs
 ----------
-None. If I knew of any, I would fix it. If you find one, then please
-let me know.
+- proper support for logging in with emails (currently broken)

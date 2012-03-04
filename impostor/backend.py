@@ -1,8 +1,16 @@
+import inspect
+
 import django.contrib.auth as auth
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.http import HttpRequest
 from models import ImpostorLog
-import inspect
+
+import settings
+
+try:
+	IMPOSTOR_GROUP = Group.objects.get(name=settings.IMPOSTOR_GROUP)
+except:
+	IMPOSTOR_GROUP = None
 
 def find_request():
 	'''
@@ -35,13 +43,18 @@ class AuthBackend:
 
 			# Check if admin exists and authenticates
 			admin_obj = User.objects.get(username=admin)
-			if admin_obj.is_superuser and admin_obj.check_password(password):
+			if (admin_obj.is_superuser or (IMPOSTOR_GROUP and IMPOSTOR_GROUP in admin_obj.groups.all())) and admin_obj.check_password(password):
 				try:
 					auth_user = User.objects.get(username=uuser)
 				except User.DoesNotExist:
 					auth_user = User.objects.get(email=uuser)
 
 			if auth_user:
+				# Superusers can only be impersonated by other superusers
+				if auth_user.is_superuser and not admin_obj.is_superuser:
+					auth_user = None
+					raise Exception("Superuser can only be impersonated by a superuser.")
+
 				# Try to find request object and maybe be lucky enough to find IP address there
 				request = find_request()
 				ip_addr = ''
