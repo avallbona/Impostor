@@ -5,7 +5,7 @@ from django.contrib.auth.models import User, Group
 from django.http import HttpRequest
 from models import ImpostorLog
 
-import settings
+from django.conf import settings
 
 try:
 	IMPOSTOR_GROUP = Group.objects.get(name=settings.IMPOSTOR_GROUP)
