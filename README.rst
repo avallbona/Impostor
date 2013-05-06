@@ -23,9 +23,9 @@ Impostor won't work, if you are not using Django's auth system. It currently
 also assumes that you use username to identify your users and not something
 else (like email).
 
-First install impostor app files as you would any other Django app.
-Next some changes to your Django settings file are in order. To
-AUTHENTICATION_BACKENDS add:
+First install impostor app files as you would any other Django app (e.g. ``pip
+install Impostor``). Next some changes to your Django settings file are in
+order. To AUTHENTICATION_BACKENDS add:
 
     ``'impostor.backend.AuthBackend'``
 
