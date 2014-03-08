@@ -9,7 +9,7 @@ interface to everyone with an access to ImpostorLog interface. However it is
 not possible to delete log entries through admin interface to make covering
 tracks more difficult.
 
-Impostor was developed and tested with Django 1.2. It might work with
+Impostor was tested with Django 1.4 and 1.5. It might work with
 other versions too. It also depends on Django's authentication system and
 assumes you use its usernames for authentication.
 
