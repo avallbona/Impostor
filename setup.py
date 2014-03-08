@@ -20,10 +20,10 @@ class osx_install_data(install_data):
 		self.set_undefined_options('install', ('install_lib', 'install_dir'))
 		install_data.finalize_options(self)
 
-if sys.platform == "darwin": 
-	cmdclasses = {'install_data': osx_install_data} 
-else: 
-	cmdclasses = {'install_data': install_data} 
+if sys.platform == "darwin":
+	cmdclasses = {'install_data': osx_install_data}
+else:
+	cmdclasses = {'install_data': install_data}
 
 def fullsplit(path, result=None):
 	"""
@@ -70,7 +70,7 @@ if len(sys.argv) > 1 and sys.argv[1] == 'bdist_wininst':
 
 setup(
 	name = "Impostor",
-	version = "1.0.1",
+	version = "1.0.2",
 	url = 'https://github.com/samastur/Impostor/',
 	author = 'Marko Samastur',
 	author_email = 'markos@gaivo.net',
