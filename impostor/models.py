@@ -1,5 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import User
+try:
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
+except ImportError:
+    from django.contrib.auth.models import User
 #from django.contrib.auth.signals import user_logged_in, user_logged_outs
 import hashlib, time
 
