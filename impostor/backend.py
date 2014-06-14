@@ -1,11 +1,17 @@
 import inspect
 
 import django.contrib.auth as auth
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
 from django.http import HttpRequest
 from models import ImpostorLog
 
 from django.conf import settings
+
+try:
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
+except ImportError:
+    from django.contrib.auth.models import User
 
 try:
 	IMPOSTOR_GROUP = Group.objects.get(name=settings.IMPOSTOR_GROUP)
