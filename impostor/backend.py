@@ -38,7 +38,8 @@ class AuthBackend:
     supports_object_permissions = False
     supports_inactive_user = False
 
-    def authenticate(self, username=None, password=None):
+    @staticmethod
+    def authenticate(username=None, password=None):
         auth_user = None
         try:
             # Admin logging as user?
@@ -75,11 +76,12 @@ class AuthBackend:
                 if log_entry.token and request:
                     request.session['impostor_token'] = log_entry.token
 
-        except:  # Nope. Do nothing and let other backends handle it.
+        except Exception:  # Nope. Do nothing and let other backends handle it.
             pass
         return auth_user
 
-    def get_user(self, user_id):
+    @staticmethod
+    def get_user(user_id):
         try:
             return User.objects.get(pk=user_id)
         except User.DoesNotExist:
