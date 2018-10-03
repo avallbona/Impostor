@@ -19,8 +19,7 @@ user_pass = 'user_pass'
 
 class TestImpostorLogin(TestCase):
 
-    @staticmethod
-    def setUp():
+    def setUp(self):
         real_admin = User.objects.create(username=admin_username, password=admin_pass)
         real_admin.is_superuser = True
         real_admin.set_password(admin_pass)
@@ -33,12 +32,6 @@ class TestImpostorLogin(TestCase):
     def test_login_user(self):
         u = authenticate(username=user_username, password=user_pass)
         real_user = User.objects.get(username=user_username)
-
-        self.failUnlessEqual(u, real_user)
-
-    def test_login_user_with_email(self):
-        u = authenticate(email=user_email, password=user_pass)
-        real_user = User.objects.get(email=user_email)
 
         self.failUnlessEqual(u, real_user)
 
@@ -68,6 +61,12 @@ class TestImpostorLogin(TestCase):
         self.failUnlessEqual(entry.imposted_as.username, user_username)
         self.assertTrue(lin.year == today.year and lin.month == today.month and lin.day == today.day)
         self.assertTrue(entry.token and entry.token.strip() != "")
+
+    def test_login_admin_as_user_with_email(self):
+        u = authenticate(username="%s as %s" % (admin_username, user_email), password=admin_pass)
+        real_user = User.objects.get(email=user_email)
+
+        self.failUnlessEqual(u, real_user)
 
     def test_form(self):
         initial = {'username': user_username, 'password': user_pass}
