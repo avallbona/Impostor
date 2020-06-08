@@ -1,1 +1,1 @@
-__VERSION__ = 0.3
+__VERSION__ = 2.0
