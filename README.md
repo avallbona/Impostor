@@ -6,6 +6,7 @@
 [![Python versions](https://img.shields.io/pypi/pyversions/impostor.svg)](https://pypi.org/project/Impostor/)
 ![Python package](https://github.com/avallbona/Impostor/workflows/Python%20package/badge.svg?branch=master)
 ![Upload Python Package](https://github.com/avallbona/Impostor/workflows/Upload%20Python%20Package/badge.svg?branch=master)
+
 Impostor is a Django application which allows staff members to login as
 a different user by using their own username and password.
 
