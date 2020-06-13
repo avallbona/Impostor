@@ -125,6 +125,3 @@ class TestImpostorLogin:
             assert log.imposted_as == impersonated_user
         else:
             assert authenticated_user is None
-
-    # def test_dummy(self):
-    #     assert False
