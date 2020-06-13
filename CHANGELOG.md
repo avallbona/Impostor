@@ -1,6 +1,6 @@
 # Change Log
 
-## 2.0.0 (2020-06-10)
+## 2.0.0 (2020-06-13)
 
 * Added informative badges on README.md
 * Adapted Impostor to newer versions of django 1.11, 2.0, 2.1, 2.2, 3.0
