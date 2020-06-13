@@ -1,12 +1,15 @@
 """
 Shamelessly copied from django's setup.py and edited to fit
 """
-
-from distutils.core import setup
-from distutils.command.install_data import install_data
-from distutils.command.install import INSTALL_SCHEMES
+import codecs
 import os
 import sys
+
+from setuptools import find_packages
+
+from distutils.command.install import INSTALL_SCHEMES
+from distutils.command.install_data import install_data
+from distutils.core import setup
 
 
 class OsxInstallData(install_data):
@@ -74,26 +77,49 @@ if len(sys.argv) > 1 and sys.argv[1] == 'bdist_wininst':
     for file_info in data_files:
         file_info[0] = '\\PURELIB\\%s' % file_info[0]
 
+
+def read(fname):
+    file_path = os.path.join(os.path.dirname(__file__), fname)
+    return codecs.open(file_path, encoding='utf-8').read()
+
+
 setup(
     name="Impostor",
-    version="1.0.2",
-    url='https://github.com/samastur/Impostor/',
+    version="2.0.0",
+    url='https://github.com/avallbona/Impostor/',
     author='Marko Samastur',
     author_email='markos@gaivo.net',
+    maintainer='Andreu Vallbona',
+    maintainer_email='avallbona@gmail.com',
     description='Staff can login as a different user.',
-    long_description='Django app allowing staff with their credentials to login as other users.',
+    long_description=read('README.md'),
+    long_description_content_type='text/markdown',
     license='MIT License',
     platforms=['any'],
-    packages=packages,
+    packages=find_packages(exclude=['tests*']),
     cmdclass=cmdclasses,
     data_files=data_files,
-    classifiers=['Development Status :: 5 - Production/Stable',
-                 'Environment :: Web Environment',
-                 'Framework :: Django',
-                 'Intended Audience :: Developers',
-                 'License :: OSI Approved :: MIT License',
-                 'Operating System :: OS Independent',
-                 'Programming Language :: Python',
-                 'Topic :: Utilities'
-                 ],
+    classifiers=[
+        'Development Status :: 5 - Production/Stable',
+        'Environment :: Web Environment',
+        'Framework :: Django',
+        'Framework :: Django :: 1.11',
+        'Framework :: Django :: 2.0',
+        'Framework :: Django :: 2.1',
+        'Framework :: Django :: 2.2',
+        'Framework :: Django :: 3.0',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: OS Independent',
+        'Topic :: Utilities'
+    ],
+    install_requires=[
+        'Django>=1.11',
+    ],
 )
