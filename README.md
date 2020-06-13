@@ -2,10 +2,10 @@
 
 [![pypi](https://img.shields.io/pypi/v/impostor.svg)](https://pypi.python.org/pypi/impostor/)
 [![Downloads](https://pepy.tech/badge/impostor)](https://pepy.tech/project/impostor)
-[![See Build Status on Travis CI](https://travis-ci.org/avallbona/impostor.svg?branch=master)](https://travis-ci.org/avallbona/impostor)
 [![Hit counter](http://hits.dwyl.com/avallbona/impostor.svg)](http://hits.dwyl.com/avallbona/impostor)
 [![Python versions](https://img.shields.io/pypi/pyversions/impostor.svg)](https://pypi.org/project/Impostor/)
-
+![Python package](https://github.com/avallbona/Impostor/workflows/Python%20package/badge.svg?branch=master)
+![Upload Python Package](https://github.com/avallbona/Impostor/workflows/Upload%20Python%20Package/badge.svg?branch=master)
 Impostor is a Django application which allows staff members to login as
 a different user by using their own username and password.
 
@@ -109,14 +109,7 @@ somebody with different set of permissions (and hence security breach).
   doable in such case)
 * framework for easy notification of hijacked users (so you can notify them
   that their account has been accessed if you wish)
-* improve the package description page
-* add changelog
 * add some tests to improve the coverage
-* add pypy version badge
-* add travis.ci to run the tests
-* add github action to run the tests
-* add github action to publish the package on pypi
-* add test execution on travis
 
 ### Known bugs
 
