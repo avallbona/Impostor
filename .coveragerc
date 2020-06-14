@@ -1,0 +1,8 @@
+[run]
+source=impostor
+
+[report]
+omit = */migrations/*,*/tests/*,impostor/admin.py,impostor/apps.py
+exclude_lines =
+    pragma: no cover
+    noqa

@@ -7,30 +7,30 @@ on:
     branches: [ master, _work_in_progress ]
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-#        python: [3.5, 3.6, 3.7, 3.8]
-        python: [3.6, 3.7, 3.8]
-        django: [dj111, dj20, dj21, dj22, dj30]
-        exclude:
-          - python: 3.5
-            django: dj30
-
+#    strategy:
+#      matrix:
+#        python: [3.6, 3.7, 3.8]
+#        django: [dj111, dj20, dj21, dj22, dj30]
+#        exclude:
+#          - python: 3.5
+#            django: dj30
+#
     steps:
       - uses: actions/checkout@v2
       - name: Setup Python
         uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python }}
+#        with:
+#          python-version: ${{ matrix.python }}
       - name: Install Tox and any other packages
         run: |
           pip install tox flake8 pytest
       - name: Run Tox
         # Run tox using the version of Python in `PATH`
-        run: tox -e py -- -v
+#        run: tox -e py -- -v
+        run: tox -- -v
 
   lint:
     runs-on: ubuntu-latest
@@ -47,3 +47,20 @@ jobs:
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+      - name: Install Coverage
+        run: |
+          pip install django pytest pytest-django pytest-lazy-fixture pytest-cov
+          pip install -e .
+      - name: Execute coverage
+        run: |
+          # execute tests with coverage
+          pytest --cov-report=xml --cov=impostor tests/
+          export CODECOV_TOKEN="${{ secrets.CODECOV_TOKEN }}"
+          bash <(curl -s https://codecov.io/bash)

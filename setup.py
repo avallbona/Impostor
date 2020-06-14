@@ -85,7 +85,7 @@ def read(fname):
 
 setup(
     name="Impostor",
-    version="2.0.0",
+    version="2.0.1",
     url='https://github.com/avallbona/Impostor/',
     author='Marko Samastur',
     author_email='markos@gaivo.net',

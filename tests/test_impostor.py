@@ -3,7 +3,7 @@
 import pytest
 from django.contrib.auth import authenticate, get_user_model
 
-
+from impostor.backend import AuthBackend
 from impostor.forms import BigAuthenticationForm
 from impostor.models import ImpostorLog
 
@@ -114,6 +114,17 @@ class TestImpostorLogin:
 
     ])
     def test_impersonation(self, first_user, password, impersonated_user, expected, custom_settings, rf):
+        """
+        check diferent use cases of impersonation
+
+        :param first_user:
+        :param password:
+        :param impersonated_user:
+        :param expected:
+        :param custom_settings:
+        :param rf:
+        :return:
+        """
         assert ImpostorLog.objects.count() == 0
         composed_username = '{} as {}'.format(first_user.username, impersonated_user.username)
         authenticated_user = authenticate(request=rf, username=composed_username, password=password)
@@ -125,3 +136,37 @@ class TestImpostorLogin:
             assert log.imposted_as == impersonated_user
         else:
             assert authenticated_user is None
+
+    @pytest.mark.parametrize('user_passed, user_expected', [
+        (pytest.lazy_fixture('real_user_with_supergroup'), pytest.lazy_fixture('real_user_with_supergroup')),
+        (None, None)
+    ])
+    def test_get_user(self, user_passed, user_expected):
+        """
+        check get_user method
+        :param user_passed:
+        :param user_expected:
+        :return:
+        """
+        try:
+            user_id = user_passed.id
+        except AttributeError:
+            user_id = None
+        result = AuthBackend.get_user(user_id)
+        assert result == user_expected
+
+    @pytest.mark.parametrize('existing_attr', [
+        True,
+        False
+    ])
+    def test_impostor_group(self, custom_settings, existing_attr):
+        """
+        check impostor_group property
+        :param custom_settings:
+        :return:
+        """
+        if existing_attr:
+            delattr(custom_settings, 'IMPOSTOR_GROUP')
+            assert AuthBackend().impostor_group is None
+        else:
+            assert AuthBackend().impostor_group is not None
