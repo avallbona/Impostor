@@ -1,6 +1,7 @@
 # Impostor
 
 [![pypi](https://img.shields.io/pypi/v/impostor.svg)](https://pypi.python.org/pypi/impostor/)
+[![codecov](https://codecov.io/gh/avallbona/Impostor/branch/master/graph/badge.svg)](https://codecov.io/gh/avallbona/Impostor)
 [![Downloads](https://pepy.tech/badge/impostor)](https://pepy.tech/project/impostor)
 [![Hit counter](http://hits.dwyl.com/avallbona/impostor.svg)](http://hits.dwyl.com/avallbona/impostor)
 [![Python versions](https://img.shields.io/pypi/pyversions/impostor.svg)](https://pypi.org/project/Impostor/)

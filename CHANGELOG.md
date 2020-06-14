@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.0.1 (2020-06-14)
+
+* Added codecov coverage
+* Improved code coverage
+* Fixed test execution with django versions
+
 ## 2.0.0 (2020-06-13)
 
 * Added informative badges on README.md
