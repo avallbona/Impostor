@@ -24,8 +24,8 @@ Impostor is a [MMM](http://mmm.si) project  developed by Marko Samastur
 (markos@gaivo.net) and maintained by Andreu Vallbona (avallbona@gmail.com)  
 licensed under MIT license.
 
-
 ## Installation
+
 Impostor won't work, if you are not using Django's auth system. It currently
 also assumes that you use username to identify your users and not something
 else (like email).
@@ -42,7 +42,6 @@ Add `impostor.backend.AuthBackend` To **AUTHENTICATION_BACKENDS** :
 This will add impostor auth backend to other backends. **AUTHENTICATION_BACKENDS**
 is a tuple listing backends and if you don't have it yet, then add following
 lines to your settings:
-
 
 ```python
 AUTHENTICATION_BACKENDS = (
@@ -74,7 +73,7 @@ By now you should have a working system. This means that your superuser users
 (users with is_superuser flag set to True) can log in as different user by
 using their password and following concatenation:
 
-```
+```bash
 staff_username as users_username
 ```
 
@@ -101,18 +100,17 @@ IMPOSTOR_GROUP and every such log in gets recorded.
 Also use IMPOSTOR_GROUP cautiously because it still allows impersonating
 somebody with different set of permissions (and hence security breach).
 
-
 ## TODO/Wishlist
 
-* add support for log in with emails
-* record when impostor logs out
-* mark "hijacked" requests (so impostor can tell when he is using website as
-  somebody else and avoid doing something stupid or that you can limit what is
-  doable in such case)
-* framework for easy notification of hijacked users (so you can notify them
-  that their account has been accessed if you wish)
-* add some tests to improve the coverage
+  * add support for log in with emails
+  * record when impostor logs out
+  * mark "hijacked" requests (so impostor can tell when he is using website as
+    somebody else and avoid doing something stupid or that you can limit what is
+    doable in such case)
+  * framework for easy notification of hijacked users (so you can notify them
+    that their account has been accessed if you wish)
+  * add some tests to improve the coverage
 
 ### Known bugs
 
-* proper support for logging in with emails (currently broken)
+  * proper support for logging in with emails (currently broken)
