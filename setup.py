@@ -1,6 +1,3 @@
-"""
-Shamelessly copied from django's setup.py and edited to fit
-"""
 import codecs
 import os
 import sys

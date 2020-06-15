@@ -33,6 +33,7 @@ class AuthBackend:
     def user_in_impostor_group(self, user):
         """
         check is the user is in the impostor group
+
         :param user:
         :return:
         """
@@ -42,6 +43,7 @@ class AuthBackend:
     def ip_address(request):
         """
         try to obtain the ip address from request
+
         :param request:
         :return:
         """
@@ -59,6 +61,7 @@ class AuthBackend:
     def is_user_allowed_to_impersonate(self, adm_obj):
         """
         verifies is the user who wants to impersonate another user can do it
+
         :param adm_obj:
         :return:
         """
@@ -68,6 +71,7 @@ class AuthBackend:
     def save_impostor_token_into_session(log_entry, request):
         """
         tries to save the impostor token into session
+
         :param log_entry:
         :param request:
         :return:
@@ -82,10 +86,8 @@ class AuthBackend:
     def authenticate(self, request, username=None, password=None, **kwargs):
         auth_user = None
         try:
-            """
-            if the split does not generate the admin and uuser
-            raise and exception and continues with the folliwing backend
-            """
+            # if the split does not generate the admin and uuser
+            # raise and exception and continues with the folliwing backend
             try:
                 admin, uuser = [uname.strip() for uname in username.split(self.separator)]
             except ValueError:
