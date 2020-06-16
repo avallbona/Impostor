@@ -80,8 +80,8 @@ class AuthBackend:
             return
         try:
             request.session['impostor_token'] = log_entry.token
-        except Exception:
-            pass
+        except Exception as e:
+            log.info(msg=str(e))
 
     def authenticate(self, request, username=None, password=None, **kwargs):
         auth_user = None

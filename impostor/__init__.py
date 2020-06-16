@@ -1,1 +1,2 @@
-__VERSION__ = "2.0.1"
+"""Impostor."""
+__VERSION__ = "2.0.2"

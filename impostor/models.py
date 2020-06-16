@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import hashlib
-import time
+import uuid
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -29,17 +28,27 @@ class ImpostorLog(models.Model):
         verbose_name=_('Logged out'), null=True, blank=True
     )
     token = models.CharField(
-        verbose_name=_('Token'), max_length=32, blank=True, db_index=True
+        verbose_name=_('Token'), max_length=36, blank=True, db_index=True
     )
 
     def save(self, *args, **kwargs):
+        """
+        Custom save method
+
+        :param args:
+        :param kwargs:
+        :return:
+        """
         if not self.token and self.impostor:
-            self.token = hashlib.sha1(
-                self.impostor.username.encode('utf-8') + str(time.time()).encode('utf-8')
-            ).hexdigest()[:32]
+            self.token = str(uuid.uuid4())
+
         super(ImpostorLog, self).save(*args, **kwargs)
 
     class Meta:
+        """
+        Description of the Meta Class.
+        """
+
         verbose_name = _('Impostor log')
         verbose_name_plural = _('Impostor logs')
         ordering = ('-logged_in', 'impostor')
