@@ -1,5 +1,6 @@
 # Impostor
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f2369a583b2841e08db801224b249c8e)](https://app.codacy.com/manual/avallbona/Impostor?utm_source=github.com&utm_medium=referral&utm_content=avallbona/Impostor&utm_campaign=Badge_Grade_Dashboard)
 [![pypi](https://img.shields.io/pypi/v/impostor.svg)](https://pypi.python.org/pypi/impostor/)
 [![codecov](https://codecov.io/gh/avallbona/Impostor/branch/master/graph/badge.svg)](https://codecov.io/gh/avallbona/Impostor)
 [![Downloads](https://pepy.tech/badge/impostor)](https://pepy.tech/project/impostor)
