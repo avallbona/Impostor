@@ -31,8 +31,11 @@ else:
 
 def fullsplit(path, result=None):
     """
-    Split a pathname into components (the opposite of os.path.join) in a
-    platform-neutral way.
+    Split a pathname into components (the opposite of os.path.join) in a platform-neutral way.
+
+    :param path:
+    :param result:
+    :return:
     """
     if result is None:
         result = []
@@ -76,13 +79,19 @@ if len(sys.argv) > 1 and sys.argv[1] == 'bdist_wininst':
 
 
 def read(fname):
+    """
+    Read the README.md file
+
+    :param fname:
+    :return:
+    """
     file_path = os.path.join(os.path.dirname(__file__), fname)
     return codecs.open(file_path, encoding='utf-8').read()
 
 
 setup(
     name="Impostor",
-    version="2.0.1",
+    version="2.0.2",
     url='https://github.com/avallbona/Impostor/',
     author='Marko Samastur',
     author_email='markos@gaivo.net',

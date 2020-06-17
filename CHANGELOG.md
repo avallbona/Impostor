@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.0.2 (2020-06-17)
+
+  * Fixed some code style issues
+  * Changed token generation in ImpostorLog
+  * Added Codacy badge
+
 ## 2.0.1 (2020-06-14)
 
   * Added codecov coverage
