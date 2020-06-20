@@ -1,5 +1,10 @@
 # Change Log
 
+## 2.0.3 (2020-06-17)
+
+  * Adjusted github action for tests
+  * Improved some documentation
+
 ## 2.0.2 (2020-06-17)
 
   * Fixed some code style issues
