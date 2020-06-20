@@ -1,5 +1,14 @@
 # Change Log
 
+## 2.0.4 (2020-06-21)
+
+  * Refactored setup.py in order to pack all the needed files
+  * Extended the default admin templeta to show `user logged as another user`
+  * Added `__str__` to ImpostorLog
+  * Updated MANIFEST.in
+  * Moved some package metadata to `__init__`
+  * Improved code coverage
+
 ## 2.0.3 (2020-06-20)
 
   * Adjusted github action for tests

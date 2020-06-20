@@ -1,0 +1,17 @@
+{% extends "admin/base_site.html" %}
+{% load i18n impostor_tags%}
+
+
+{% block welcome-msg %}
+    {% trans 'Welcome,' %}
+    {% get_impersonated_as request as impersonated_as %}
+    {% if not impersonated_as %}
+        <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+    {% else %}
+        <span class="loggedAs">
+            <strong>{% firstof impersonated_as.impostor %}</strong>
+            {% trans ' logged as '%}
+            <strong>{% firstof impersonated_as.imposted_as %}</strong>.
+        </span>
+    {% endif %}
+{% endblock %}

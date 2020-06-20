@@ -12,6 +12,18 @@
 Impostor is a Django application which allows staff members to login as
 a different user by using their own username and password.
 
+**Login**
+
+![`Login`](https://i.imgur.com/TaoZyOh.png)
+
+**Logged as**
+
+![`Logged as`](https://i.imgur.com/db3fSi8.png)
+
+**Impostor log**
+
+![`Impostor log`](https://i.imgur.com/OQ9IWB7.png)
+
 Every such authentication is recorded in database and listed in admin
 interface to everyone with an access to ImpostorLog interface. However it is
 not possible to delete log entries through admin interface to make covering
@@ -59,6 +71,9 @@ INSTALLED_APPS = [
     'impostor',
 ]
 ```
+
+In order to be able to see the `user logged as anotheruser` if the django admin,
+be sure to include the 'impostor' app before the 'django.contrib.admin' in the **INSTALLED_APPS**.
 
 Run
 

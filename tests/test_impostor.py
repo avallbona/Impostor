@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, get_user_model
 from impostor.backend import AuthBackend
 from impostor.forms import BigAuthenticationForm
 from impostor.models import ImpostorLog
+from impostor.templatetags.impostor_tags import get_impersonated_as
 
 admin_username = 'real_test_admin'
 admin_pass = 'admin_pass'
@@ -125,6 +126,8 @@ class TestImpostorLogin:
         :param rf:
         :return:
         """
+        setattr(rf, 'META', {})
+        rf.META['HTTP_X_FORWARDED_FOR'] = '127.0.0.1,192.168.0.1'
         assert ImpostorLog.objects.count() == 0
         composed_username = '{} as {}'.format(first_user.username, impersonated_user.username)
         authenticated_user = authenticate(request=rf, username=composed_username, password=password)
@@ -134,6 +137,7 @@ class TestImpostorLogin:
             log = ImpostorLog.objects.first()
             assert log.impostor == first_user
             assert log.imposted_as == impersonated_user
+            assert log.impostor_ip == '127.0.0.1'
         else:
             assert authenticated_user is None
 
@@ -170,3 +174,22 @@ class TestImpostorLogin:
             assert AuthBackend().impostor_group is None
         else:
             assert AuthBackend().impostor_group is not None
+
+    @pytest.mark.parametrize('in_session,expected', [
+        (True, True),
+        (False, False)
+    ])
+    def test_impersonated_as_tag(self, real_admin, real_user, rf, in_session, expected):
+        obj = ImpostorLog.objects.create(impostor=real_admin, imposted_as=real_user)
+        setattr(rf, 'session', {})
+        if in_session:
+            rf.session['impostor_token'] = obj.token
+        result = get_impersonated_as(rf)
+        if expected:
+            assert result == obj
+        else:
+            assert result != obj
+
+    def test_impostor_log_str(self, real_admin, real_user):
+        obj = ImpostorLog.objects.create(impostor=real_admin, imposted_as=real_user)
+        assert str(obj) == '{} as {}'.format(real_admin.username, real_user.username)
