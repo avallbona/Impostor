@@ -52,3 +52,11 @@ class ImpostorLog(models.Model):
         verbose_name = _('Impostor log')
         verbose_name_plural = _('Impostor logs')
         ordering = ('-logged_in', 'impostor')
+
+    def __str__(self):
+        """
+        str representation of the object.
+
+        :return:
+        """
+        return '{} as {}'.format(self.impostor, self.imposted_as)

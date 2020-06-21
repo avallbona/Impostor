@@ -1,2 +1,7 @@
 """Impostor."""
-__VERSION__ = "2.0.3"
+__version__ = "2.0.4"
+__author__ = "Marko Samastur"
+__email__ = "markos@gaivo.net"
+__mantainer__ = "Andreu Vallbona"
+__mantainer_email__ = "avallbona@gmail.com"
+default_app_config = "impostor.apps.ImpostorConfig"

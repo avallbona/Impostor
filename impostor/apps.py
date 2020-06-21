@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class ImpostorConfig(AppConfig):
-    name = 'Impostor'
+    name = 'impostor'
     verbose_name = 'Impostor'
