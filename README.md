@@ -73,7 +73,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-In order to be able to see the `user logged as anotheruser` if the django admin,
+In order to be able to see the `user logged as anotheruser` in the django admin,
 be sure to include the 'impostor' app before the 'django.contrib.admin' in the **INSTALLED_APPS**.
 
 Run
