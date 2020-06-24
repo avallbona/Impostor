@@ -1,6 +1,7 @@
 include AUTHORS
 include LICENSE
-include CHANGELOG.MD
+include CHANGELOG.md
+include CODE-OF-CONDUCT.md
 include README.md
 recursive-include impostor *
 global-exclude *.pyc
