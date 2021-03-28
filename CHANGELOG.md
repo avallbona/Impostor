@@ -1,5 +1,15 @@
 # Change Log
 
+## 2.0.5 (2021-03-29)
+
+  * added support for django 3.1
+  * added support for python 3.9
+  * updated dev dependencies
+  * updated documentation
+  * added code of conduct
+  * added contributing
+  * added django versions badge
+
 ## 2.0.4 (2020-06-21)
 
   * Refactored setup.py in order to pack all the needed files

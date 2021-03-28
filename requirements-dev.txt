@@ -1,14 +1,13 @@
 appdirs==1.4.4
-asgiref==3.2.7
+asgiref==3.2.10
 attrs==19.3.0
 backcall==0.1.0
 decorator==4.4.2
 distlib==0.3.0
-Django==3.0.7
+Django==3.1.7
 filelock==3.0.12
 importlib-metadata==1.6.1
 importlib-resources==1.5.0
--e git+git@github.com:avallbona/Impostor.git@6be19aa70c02d2ed814ef8d2597e374ec8e28e2c#egg=Impostor
 ipdb==0.13.2
 ipython==7.15.0
 ipython-genutils==0.2.0
@@ -21,11 +20,11 @@ pickleshare==0.7.5
 pluggy==0.13.1
 prompt-toolkit==3.0.5
 ptyprocess==0.6.0
-py==1.8.1
+py==1.8.2
 Pygments==2.6.1
 pyparsing==2.4.7
-pytest==5.4.3
-pytest-django==3.9.0
+pytest==6.1.2
+pytest-django==4.1.0
 pytest-lazy-fixture==0.6.3
 pytz==2020.1
 six==1.15.0
