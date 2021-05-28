@@ -6,6 +6,7 @@ from impostor.forms import BigAuthenticationForm
 from impostor.models import ImpostorLog
 from impostor.templatetags.impostor_tags import get_impersonated_as
 
+
 admin_username = 'real_test_admin'
 admin_pass = 'admin_pass'
 admin_email = 'admin@email.com'
@@ -16,13 +17,15 @@ user_pass = 'user_pass'
 
 user_with_supergroup_pass = '1234qwer'
 
+fake_admin_username = "fake_test_admin"
+fake_user_username = "fake_test_user"
 
 @pytest.mark.django_db
 class TestImpostorLogin:
 
     def test_login_user(self):
         """
-        checks that a regular user can login normally throught the next backend
+        checks that a regular user can login normally through the next backend
         :return:
         """
         u = authenticate(username=user_username, password=user_pass)
@@ -31,7 +34,7 @@ class TestImpostorLogin:
 
     def test_login_admin(self):
         """
-        checks that an admin user can login normally throught the next backend
+        checks that an admin user can login normally through the next backend
         :return:
         """
         u = authenticate(username=admin_username, password=admin_pass)
@@ -64,6 +67,30 @@ class TestImpostorLogin:
         # assert (lin.year == today.year and lin.month == today.month and lin.day == today.day)
         assert (entry.token and entry.token.strip() != "")
 
+    def test_missing_authenticate_field(self):
+        """
+        checks that user cannot login if user USERNAME_FIELD/username or password field is missing
+        """
+        composed_username = '{} as {}'.format(admin_username, user_username)
+        user = authenticate(random_username_field=composed_username, password=admin_pass)
+        assert user is None
+
+    def test_user_is_not_returned_if_admin_user_not_found(self):
+        """
+        checks that admin user doesn't exists case are properly handled out by backend
+        """
+        composed_username = '{} as {}'.format(fake_admin_username, user_username)
+        user = authenticate(username=composed_username, password=admin_pass)
+        assert user is None
+
+    def test_user_is_not_returned_if_user_not_found(self):
+        """
+        checks that normal user doesn't exists case are properly handled out by backend
+        """
+        composed_username = '{} as {}'.format(admin_username, fake_user_username)
+        user = authenticate(username=composed_username, password=admin_pass)
+        assert user is None
+
     def test_form(self):
         """
         test custom login form
@@ -88,11 +115,6 @@ class TestImpostorLogin:
         form = BigAuthenticationForm(data=initial)
         assert not form.is_valid()
 
-    def test_login_admin_as_user_with_email(self):
-        composed_username = '{} as {}'.format(admin_username, user_email)
-        u = authenticate(username=composed_username, password=admin_pass)
-        real_user = get_user_model().objects.get(email=user_email)
-        assert u == real_user
 
     @pytest.mark.parametrize('first_user,password,impersonated_user,expected', [
 
@@ -114,7 +136,7 @@ class TestImpostorLogin:
     ])
     def test_impersonation(self, first_user, password, impersonated_user, expected, custom_settings, rf):
         """
-        check diferent use cases of impersonation
+        check different use cases of impersonation
 
         :param first_user:
         :param password:
