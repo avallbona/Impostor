@@ -1,0 +1,23 @@
+repos:
+- repo: https://github.com/ambv/black
+  rev: 20.8b1
+  hooks:
+  - id: black
+    exclude: datasets
+- repo: https://github.com/timothycrosley/isort
+  rev: 5.7.0
+  hooks:
+  - id: isort
+    exclude: ./settings.py
+    files: .+\.py$
+- repo: https://gitlab.com/pycqa/flake8
+  rev: 3.8.4
+  hooks:
+  - id: flake8
+    exclude: ./settings.py
+    files: .+\.py$
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v3.3.0
+  hooks:
+  - id: debug-statements
+    files: .+\.py$
