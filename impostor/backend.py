@@ -9,8 +9,6 @@ from .models import ImpostorLog
 
 log = logging.getLogger(__name__)
 
-User = get_user_model()
-
 
 class ImpostorException(Exception):
     pass
@@ -87,6 +85,8 @@ class AuthBackend:
 
     def authenticate(self, request, username=None, password=None, **kwargs):
         auth_user = None
+        User = get_user_model()
+
         try:
             if not username:
                 username = kwargs.get(User.USERNAME_FIELD)
@@ -103,7 +103,8 @@ class AuthBackend:
             except ValueError:
                 raise ImpostorException(_("Regular login, moving to next auth backend"))
 
-            # Check if admin exists, authenticates and is allowed to impersonate another user
+            # Check if admin exists, authenticates and is
+            # allowed to impersonate another user
             try:
                 adm_obj = User._default_manager.get_by_natural_key(admin)
             except User.DoesNotExist:
@@ -112,10 +113,10 @@ class AuthBackend:
                 # (see https://code.djangoproject.com/ticket/20760)
                 User().set_password(password)
                 raise ImpostorException(_("Admin user is not active"))
+
             if self.is_user_allowed_to_impersonate(adm_obj) and adm_obj.check_password(
                 password
             ):
-
                 # get the user we want to impersonate
                 try:
                     auth_user = User._default_manager.get_by_natural_key(uuser)
@@ -147,6 +148,7 @@ class AuthBackend:
 
     @staticmethod
     def get_user(user_id):
+        User = get_user_model()
         try:
             return User._default_manager.get(pk=user_id)
         except User.DoesNotExist:

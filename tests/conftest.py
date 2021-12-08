@@ -11,6 +11,7 @@ def pytest_configure():
 
 
 admin_username = "real_test_admin"
+admin_email = "admin@email.com"
 admin_pass = "admin_pass"
 
 user_username = "real_test_user"
@@ -29,7 +30,9 @@ def custom_settings(settings):
 @pytest.fixture(autouse=True)
 def real_admin():
     real_admin = get_user_model().objects.create(
-        username=admin_username, password=admin_pass
+        username=admin_username,
+        email=admin_email,
+        password=admin_pass,
     )
     real_admin.is_superuser = True
     real_admin.set_password(admin_pass)

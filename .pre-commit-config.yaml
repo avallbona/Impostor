@@ -15,7 +15,7 @@ repos:
   hooks:
   - id: flake8
     files: .+\.py$
-    exclude: .tox, venv
+    exclude: .tox, venv, migrations
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v3.3.0
   hooks:
