@@ -23,29 +23,21 @@ fake_user_username = "fake_test_user"
 @pytest.mark.django_db
 class TestImpostorLogin:
     def test_login_user(self):
-        """
-        checks that a regular user can login normally through the next backend
-        :return:
-        """
+        """checks that a regular user can login normally through the next backend"""
         u = authenticate(username=user_username, password=user_pass)
         real_user = get_user_model().objects.get(username=user_username)
         assert u == real_user
 
     def test_login_admin(self):
-        """
-        checks that an admin user can login normally through the next backend
-        :return:
-        """
+        """checks that an admin user can login normally through the next backend"""
         u = authenticate(username=admin_username, password=admin_pass)
         real_admin = get_user_model().objects.get(username=admin_username)
         assert u == real_admin
 
     def test_login_admin_as_user(self):
-        """
-        checks that an admin user can impersonate a regular user via impostor backend
-        and that the login get reflected into the ImpostorLog table
-        :return:
-        """
+        """checks that an admin user can impersonate a regular user via
+        impostor backend and that the login get reflected into the
+        ImpostorLog table"""
         assert ImpostorLog.objects.count() == 0
 
         composed_username = "{} as {}".format(admin_username, user_username)
@@ -67,9 +59,8 @@ class TestImpostorLogin:
         assert entry.token and entry.token.strip() != ""
 
     def test_missing_authenticate_field(self):
-        """
-        checks that user cannot login if user USERNAME_FIELD/username or password field is missing
-        """
+        """checks that user cannot login if user USERNAME_FIELD/username
+        or password field is missing"""
         composed_username = "{} as {}".format(admin_username, user_username)
         user = authenticate(
             random_username_field=composed_username, password=admin_pass
@@ -77,27 +68,21 @@ class TestImpostorLogin:
         assert user is None
 
     def test_user_is_not_returned_if_admin_user_not_found(self):
-        """
-        checks that admin user doesn't exists case are properly handled out by backend
-        """
+        """checks that admin user doesn't exist case are properly
+        handled out by backend"""
         composed_username = "{} as {}".format(fake_admin_username, user_username)
         user = authenticate(username=composed_username, password=admin_pass)
         assert user is None
 
     def test_user_is_not_returned_if_user_not_found(self):
-        """
-        checks that normal user doesn't exists case are properly handled out by backend
-        """
+        """checks that normal user doesn't exist case are properly
+        handled out by backend"""
         composed_username = "{} as {}".format(admin_username, fake_user_username)
         user = authenticate(username=composed_username, password=admin_pass)
         assert user is None
 
     def test_form(self):
-        """
-        test custom login form
-
-        :return:
-        """
+        """test custom login form"""
         initial = {"username": user_username, "password": user_pass}
         form = BigAuthenticationForm(data=initial)
         assert form.is_valid()

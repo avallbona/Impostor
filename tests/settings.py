@@ -11,6 +11,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.auth",
     "impostor",
+    "tests.testapp.apps.TestAppConfig",
 ]
 
 AUTHENTICATION_BACKENDS = (
