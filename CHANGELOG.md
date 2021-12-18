@@ -4,7 +4,8 @@
 ## 3.0.0 (2021-12-18)
   * added support for django 3.2 and django 4.0
   * implemented support for custom user model and custom USERNAME_FIELD ([Saurav Sharma](https://github.com/iamsauravsharma))
-  * 
+  * added pre-commit config file
+  * applied black and isort to source code 
 
 ## 2.0.5 (2021-03-29)
 
