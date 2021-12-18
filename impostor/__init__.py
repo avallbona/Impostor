@@ -1,5 +1,5 @@
 """Impostor."""
-__version__ = "2.0.5"
+__version__ = "3.0.0"
 __author__ = "Marko Samastur"
 __email__ = "markos@gaivo.net"
 __mantainer__ = "Andreu Vallbona"

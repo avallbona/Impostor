@@ -1,5 +1,11 @@
 # Change Log
 
+
+## 3.0.0 (2021-12-18)
+  * added support for django 3.2 and django 4.0
+  * implemented support for custom user model and custom USERNAME_FIELD ([Saurav Sharma](https://github.com/iamsauravsharma))
+  * 
+
 ## 2.0.5 (2021-03-29)
 
   * added support for django 3.1
