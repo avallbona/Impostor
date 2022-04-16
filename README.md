@@ -41,8 +41,10 @@ licensed under MIT license.
 ## Installation
 
 Impostor won't work, if you are not using Django's auth system. It currently
-also assumes that you use username to identify your users and not something
-else (like email).
+uses settings AUTH_USER_MODEL(default: `django.contrib.auth.models.User`)
+USERNAME_FIELD(default: `username`) or username as authentication parameter
+along with password and user object _default_manager get_by_natural_key
+function for returning user object from USERNAME_FIELD.
 
 First install impostor app files as you would any other Django app
 
@@ -152,7 +154,6 @@ If you encounter any problems, please [file an issue](https://github.com/avallbo
 
 ## TODO/Wishlist
 
-  * add support for log in with emails
   * record when impostor logs out
   * mark "hijacked" requests (so impostor can tell when he is using website as
     somebody else and avoid doing something stupid or that you can limit what is
@@ -160,7 +161,3 @@ If you encounter any problems, please [file an issue](https://github.com/avallbo
   * framework for easy notification of hijacked users (so you can notify them
     that their account has been accessed if you wish)
   * add some tests to improve the coverage
-
-### Known bugs
-
-  * proper support for logging in with emails (currently broken)
