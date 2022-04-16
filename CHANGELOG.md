@@ -1,7 +1,6 @@
 # Change Log
 
-
-## 3.0.0 (2021-12-18)
+## 3.0.0 (2022-04-15)
   * added support for django 3.2 and django 4.0
   * implemented support for custom user model and custom USERNAME_FIELD ([Saurav Sharma](https://github.com/iamsauravsharma))
   * added pre-commit config file
