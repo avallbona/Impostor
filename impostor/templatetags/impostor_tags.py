@@ -1,6 +1,7 @@
 """template tags for impostor."""
 
 from django import template
+
 from impostor.models import ImpostorLog
 
 register = template.Library()
