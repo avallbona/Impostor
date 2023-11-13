@@ -1,23 +1,23 @@
 repos:
-- repo: https://github.com/ambv/black
-  rev: 20.8b1
+- repo: https://github.com/psf/black
+  rev: 23.11.0
   hooks:
   - id: black
     exclude: .tox, venv
-- repo: https://github.com/timothycrosley/isort
-  rev: 5.7.0
+- repo: https://github.com/PyCQA/isort
+  rev: 5.12.0
   hooks:
   - id: isort
     files: .+\.py$
     exclude: .tox, venv
-- repo: https://gitlab.com/pycqa/flake8
-  rev: 3.8.4
+- repo: https://github.com/PyCQA/flake8
+  rev: 6.1.0
   hooks:
   - id: flake8
     files: .+\.py$
     exclude: .tox, venv, migrations
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v3.3.0
+  rev: v4.5.0
   hooks:
   - id: debug-statements
     files: .+\.py$
