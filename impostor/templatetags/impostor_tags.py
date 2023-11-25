@@ -1,6 +1,7 @@
 """template tags for impostor."""
 
 from django import template
+
 from impostor.models import ImpostorLog
 
 register = template.Library()
@@ -14,7 +15,9 @@ def get_impersonated_as(request):
     :return:
     """
     try:
-        impersonated_as = ImpostorLog.objects.get(token=request.session['impostor_token'])
+        impersonated_as = ImpostorLog.objects.get(
+            token=request.session["impostor_token"]
+        )
     except (ImpostorLog.DoesNotExist, KeyError):
         impersonated_as = None
 

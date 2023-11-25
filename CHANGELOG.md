@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.1.0 (2023-12-03)
+  * added support for django 4.1 and 4.2
+  * added support for python 3.10, 3.11 and 3.12
+  * dropped support for django 1.11
+  * dropped support for pythjon 3.4, 3.5 and 3.6
+
 ## 3.0.0 (2022-04-15)
   * added support for django 3.2 and django 4.0
   * implemented support for custom user model and custom USERNAME_FIELD ([Saurav Sharma](https://github.com/iamsauravsharma))
