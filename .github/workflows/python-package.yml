@@ -1,4 +1,4 @@
-name: Python package
+name: python package
 
 on:
   push:
@@ -11,63 +11,162 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-#        python: [3.5, 3.6, 3.7, 3.8, 3.9]
-        python: [3.6, 3.7, 3.8, 3.9]
         django: [
-          "Django>=1.11,<2.0",
-          "Django>=2.0,<2.1",
-          "Django>=2.1,<2.2",
-          "Django>=2.2,<3.0",
-          "Django>=3.0,<3.1",
-          "Django>=3.1,<3.2"
+          "django>=2.0,<2.1",
+          "django>=2.1,<2.2",
+          "django>=2.2,<3.0",
+          "django>=3.0,<3.1",
+          "django>=3.1,<3.2",
+          "django>=3.2,<4.0",
+          "django>=4.0,<4.1",
+          "django>=4.1,<4.2",
+          "django>=4.2,<5.0",
         ]
-#        exclude:
-#          - python: 3.5
-#            django: Django>=3.0
+        python: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
+        exclude:
+          # django 2.0
+          - django: "django>=2.0,<2.1"
+            python: "3.8"
+          - django: "django>=2.0,<2.1"
+            python: "3.9"
+          - django: "django>=2.0,<2.1"
+            python: "3.10"
+          - django: "django>=2.0,<2.1"
+            python: "3.11"
+          - django: "django>=2.0,<2.1"
+            python: "3.12"
+          # django 2.1
+          - django: "django>=2.1,<2.2"
+            python: "3.4"
+          - django: "django>=2.1,<2.2"
+            python: "3.8"
+          - django: "django>=2.1,<2.2"
+            python: "3.9"
+          - django: "django>=2.1,<2.2"
+            python: "3.10"
+          - django: "django>=2.1,<2.2"
+            python: "3.11"
+          - django: "django>=2.1,<2.2"
+            python: "3.12"
+          # django 2.2
+          - django: "django>=2.2,<3.0"
+            python: "3.4"
+          - django: "django>=2.2,<3.0"
+            python: "3.10"
+          - django: "django>=2.2,<3.0"
+            python: "3.11"
+          - django: "django>=2.2,<3.0"
+            python: "3.12"
+          # django 3.0
+          - django: "django>=3.0,<3.1"
+            python: "3.4"
+          - django: "django>=3.0,<3.1"
+            python: "3.5"
+          - django: "django>=3.0,<3.1"
+            python: "3.10"
+          - django: "django>=3.0,<3.1"
+            python: "3.11"
+          - django: "django>=3.0,<3.1"
+            python: "3.12"
+          # django 3.1
+          - django: "django>=3.1,<3.2"
+            python: "3.4"
+          - django: "django>=3.1,<3.2"
+            python: "3.5"
+          - django: "django>=3.1,<3.2"
+            python: "3.10"
+          - django: "django>=3.1,<3.2"
+            python: "3.11"
+          - django: "django>=3.1,<3.2"
+            python: "3.12"
+          # django 3.2
+          - django: "django>=3.2,<4.0"
+            python: "3.4"
+          - django: "django>=3.2,<4.0"
+            python: "3.5"
+          - django: "django>=3.2,<4.0"
+            python: "3.11"
+          - django: "django>=3.2,<4.0"
+            python: "3.12"
+          # django 4.0
+          - django: "django>=4.0,<4.1"
+            python: "3.4"
+          - django: "django>=4.0,<4.1"
+            python: "3.5"
+          - django: "django>=4.0,<4.1"
+            python: "3.6"
+          - django: "django>=4.0,<4.1"
+            python: "3.7"
+          - django: "django>=4.0,<4.1"
+            python: "3.11"
+          - django: "django>=4.0,<4.1"
+            python: "3.12"
+          # django 4.1
+          - django: "django>=4.1,<4.2"
+            python: "3.4"
+          - django: "django>=4.1,<4.2"
+            python: "3.5"
+          - django: "django>=4.1,<4.2"
+            python: "3.6"
+          - django: "django>=4.1,<4.2"
+            python: "3.7"
+          - django: "django>=4.1,<4.2"
+            python: "3.12"
+          # django 4.2
+          - django: "django>=4.2,<5.0"
+            python: "3.4"
+          - django: "django>=4.2,<5.0"
+            python: "3.5"
+          - django: "django>=4.2,<5.0"
+            python: "3.6"
+          - django: "django>=4.2,<5.0"
+            python: "3.7"
 
     steps:
       - uses: actions/checkout@v2
-      - name: Setup Python
+      - name: setup python
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python }}
-      - name: Install pytest, pytest-django and pytest-lazy-fixture, django and impostor
+      - name: install pytest, pytest-django and pytest-lazy-fixture, django and impostor
         run: |
-          pip install pytest==6.1.2 pytest-django==4.1.0 pytest-lazy-fixture==0.6.3
+          pip install pytest==7.4.3 pytest-django==4.5.0 pytest-lazy-fixture==0.6.3
           pip install "${{ matrix.django }}"
           pip install -e .
-      - name: Run tests
-        run: pytest -v
+      - name: run tests
+        run: pytest -v tests/
 
   lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Setup Python
+      - name: setup python
         uses: actions/setup-python@v2
-      - name: Install Tox and any other packages
+      - name: install tox and any other packages
         run: |
           pip install flake8
-      - name: Lint with flake8
+      - name: lint with flake8
         run: |
-          # stop the build if there are Python syntax errors or undefined names
-          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          # stop the build if there are python syntax errors or undefined names
+          flake8 . --count --select=e9,f63,f7,f82 --show-source --statistics
+          # exit-zero treats all errors as warnings. the github editor is 127 chars wide
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
   coverage:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Setup Python
+      - name: setup python
         uses: actions/setup-python@v2
-      - name: Install Coverage
+        with:
+          python-version: "3.11"
+      - name: install coverage
         run: |
-          pip install django pytest pytest-django pytest-lazy-fixture pytest-cov
+          pip install django pytest==7.4.3 pytest-django==4.7.0 pytest-lazy-fixture==0.6.3 pytest-cov==4.1.0
           pip install -e .
-      - name: Execute coverage
+      - name: execute coverage
         run: |
           # execute tests with coverage
           pytest --cov-report=xml --cov=impostor tests/
-          export CODECOV_TOKEN="${{ secrets.CODECOV_TOKEN }}"
+          export codecov_token="${{ secrets.codecov_token }}"
           bash <(curl -s https://codecov.io/bash)
