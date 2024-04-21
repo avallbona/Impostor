@@ -1,4 +1,5 @@
 """Impostor."""
+
 __version__ = "3.1.0"
 __author__ = "Marko Samastur"
 __email__ = "markos@gaivo.net"
