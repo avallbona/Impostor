@@ -105,39 +105,46 @@ class TestImpostorLogin:
         "first_user,password,impersonated_user,expected",
         [
             (
-                pytest.lazy_fixture("real_admin"),
+                "real_admin",
                 admin_pass,
-                pytest.lazy_fixture("real_user"),
+                "real_user",
                 "ok",
             ),
             (
-                pytest.lazy_fixture("real_admin"),
+                "real_admin",
                 admin_pass,
-                pytest.lazy_fixture("real_admin"),
+                "real_admin",
                 "ok",
             ),
             (
-                pytest.lazy_fixture("real_user"),
+                "real_user",
                 user_pass,
-                pytest.lazy_fixture("real_admin"),
+                "real_admin",
                 "ko",
             ),
             (
-                pytest.lazy_fixture("real_user_with_supergroup"),
+                "real_user_with_supergroup",
                 user_with_supergroup_pass,
-                pytest.lazy_fixture("real_user"),
+                "real_user",
                 "ok",
             ),
             (
-                pytest.lazy_fixture("real_user_with_supergroup"),
+                "real_user_with_supergroup",
                 user_with_supergroup_pass,
-                pytest.lazy_fixture("real_admin"),
+                "real_admin",
                 "ko",
             ),
         ],
     )
     def test_impersonation(
-        self, first_user, password, impersonated_user, expected, custom_settings, rf
+        self,
+        request,
+        first_user,
+        password,
+        impersonated_user,
+        expected,
+        custom_settings,
+        rf,
     ):
         """
         check different use cases of impersonation
@@ -150,6 +157,9 @@ class TestImpostorLogin:
         :param rf:
         :return:
         """
+        first_user = request.getfixturevalue(first_user)
+        impersonated_user = request.getfixturevalue(impersonated_user)
+
         setattr(rf, "META", {})
         rf.META["HTTP_X_FORWARDED_FOR"] = "127.0.0.1,192.168.0.1"
         assert ImpostorLog.objects.count() == 0
@@ -173,19 +183,24 @@ class TestImpostorLogin:
         "user_passed, user_expected",
         [
             (
-                pytest.lazy_fixture("real_user_with_supergroup"),
-                pytest.lazy_fixture("real_user_with_supergroup"),
+                "real_user_with_supergroup",
+                "real_user_with_supergroup",
             ),
             (None, None),
         ],
     )
-    def test_get_user(self, user_passed, user_expected):
+    def test_get_user(self, request, user_passed, user_expected):
         """
         check get_user method
         :param user_passed:
         :param user_expected:
         :return:
         """
+        user_passed = request.getfixturevalue(user_passed) if user_passed else None
+        user_expected = (
+            request.getfixturevalue(user_expected) if user_expected else None
+        )
+
         try:
             user_id = user_passed.id
         except AttributeError:

@@ -1,10 +1,18 @@
 # Change Log
 
+## 3.2.0 (2025-04-26)
+  * added support for django 5.0, 5.1 and 5.2
+  * added support for python 3.13
+  * dropped support for django 2.0, 2.1, 2.2, 3.0 and 3.1
+  * dropped support for python 3.7
+  * removed default_app_config variable from __init__.py
+  * refactored tests to remove pytest-lazy-fixture plugin (which is not mantained anymore)
+
 ## 3.1.0 (2023-12-03)
   * added support for django 4.1 and 4.2
   * added support for python 3.10, 3.11 and 3.12
   * dropped support for django 1.11
-  * dropped support for pythjon 3.4, 3.5 and 3.6
+  * dropped support for python 3.4, 3.5 and 3.6
 
 ## 3.0.0 (2022-04-15)
   * added support for django 3.2 and django 4.0
