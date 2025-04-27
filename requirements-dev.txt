@@ -34,4 +34,4 @@ toml==0.10.1
 tox==3.15.2
 virtualenv==20.0.21
 wcwidth==0.2.4
-zipp==3.1.0
+zipp==3.19.1
