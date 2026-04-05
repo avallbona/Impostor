@@ -8,16 +8,18 @@ the coverage at least stays the same before you submit a pull request.
 Install all the python interpreters you need via [pyenv](https://github.com/pyenv/pyenv). E.g.:
 
 ```bash
+pyenv install 3.14.3
+pyenv install 3.13.2
+pyenv install 3.12.2
+pyenv install 3.11.8
+pyenv install 3.10.13
 pyenv install 3.9.2
 pyenv install 3.8.8
-pyenv install 3.7.7
-pyenv install 3.6.13
-pyenv install 3.5.3
 ```
 and then make them global with:
 
 ```bash
-pyenv global 3.9.2 3.8.8 3.7.7 3.6.13 3.5.3
+pyenv global 3.14.3 3.13.2 3.12.2 3.11.8 3.10.13 3.9.2 3.8.8 
 ```
 
 Clone the repo into a dir.

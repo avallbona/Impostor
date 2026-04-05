@@ -1,5 +1,9 @@
 # Change Log
 
+## 3.3.0 (2026-04-05)
+  * added support for django 6.0
+  * added support for python 3.14
+
 ## 3.2.0 (2025-04-26)
   * added support for django 5.0, 5.1 and 5.2
   * added support for python 3.13
