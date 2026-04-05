@@ -19,8 +19,9 @@ jobs:
           "django>=5.0,<5.1",
           "django>=5.1,<5.2",
           "django>=5.2,<6.0",
+          "django>=6.0,<6.1"
         ]
-        python: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+        python: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13","3.14"]
         exclude:
           # django 3.2
           - django: "django>=3.2,<4.0"
@@ -29,6 +30,8 @@ jobs:
             python: "3.12"
           - django: "django>=3.2,<4.0"
             python: "3.13"
+          - django: "django>=3.2,<4.0"
+            python: "3.14"
           # django 4.0
           - django: "django>=4.0,<4.1"
             python: "3.11"
@@ -36,36 +39,59 @@ jobs:
             python: "3.12"
           - django: "django>=4.0,<4.1"
             python: "3.13"
+          - django: "django>=4.0,<4.1"
+            python: "3.14"
           # django 4.1
           - django: "django>=4.1,<4.2"
             python: "3.12"
           - django: "django>=4.1,<4.2"
             python: "3.13"
-          # django 4.2
           - django: "django>=4.1,<4.2"
+            python: "3.14"
+          # django 4.2
+          - django: "django>=4.2,<5.0"
             python: "3.13"
+          - django: "django>=4.2,<5.0"
+            python: "3.14"
           # django 5.0
           - django: "django>=5.0,<5.1"
             python: "3.8"
           - django: "django>=5.0,<5.1"
             python: "3.9"
+          - django: "django>=5.0,<5.1"
+            python: "3.14"
           # django 5.1
           - django: "django>=5.1,<5.2"
             python: "3.8"
           - django: "django>=5.1,<5.2"
             python: "3.9"
+          - django: "django>=5.1,<5.2"
+            python: "3.14"
           # django 5.2
           - django: "django>=5.2,<6.0"
             python: "3.8"
           - django: "django>=5.2,<6.0"
             python: "3.9"
+          - django: "django>=5.2,<6.0"
+            python: "3.14"
+          # django 6.0
+          - django: "django>=6.0,<6.1"
+            python: "3.8"
+          - django: "django>=6.0,<6.1"
+            python: "3.9"
+          - django: "django>=6.0,<6.1"
+            python: "3.10"
+          - django: "django>=6.0,<6.1"
+            python: "3.11"
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: setup python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
       - name: install pytest, pytest-django, django and impostor
         run: |
           pip install pytest==8.3.5 pytest-django==4.11.1
@@ -77,9 +103,11 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: setup python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
       - name: install tox and any other packages
         run: |
           pip install flake8
@@ -93,11 +121,11 @@ jobs:
   coverage:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: setup python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.12"
       - name: install coverage
         run: |
           pip install django pytest==8.3.5 pytest-django==4.11.1 pytest-cov==4.1.0
